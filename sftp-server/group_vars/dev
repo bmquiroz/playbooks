@@ -1,0 +1,5 @@
+# Variables related to Dev deployments
+
+instance_count=1
+ntp_server=ntp.atlanta.example.com
+proxy=proxy.atlanta.example.com
