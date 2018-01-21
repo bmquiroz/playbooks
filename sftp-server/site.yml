@@ -1,17 +1,16 @@
 ---
-- name: Test sftp-server role
+- name: sftp-server role
   hosts: all
   remote_user: root
   # become: yes
   # become_user: root
   vars:
     - sftp_users:
-      - name: peter
+      - name: polar
         password: "$1$salty$li5TXAa2G6oxHTDkqx3Dz/" # passpass
         shell: False
         sftp_directories:
-        - directory_only_for_peter1
-        - directory_only_for_peter2
+        - polar_data
     - sftp_directories:
       - imports
       - exports

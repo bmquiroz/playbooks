@@ -1,11 +1,11 @@
 ---
-- name: SFTP-Server | Restart sshd
+- name: Restart sshd
   service:
     name: "{{ 'ssh' if ansible_os_family == 'Debian' else 'sshd' }}"
     state: restarted
   ignore_errors: Yes
 
-- name: SFTP-Server | Restart rsyslog
+- name: Restart rsyslog
   service:
     name: rsyslog
     state: restarted
