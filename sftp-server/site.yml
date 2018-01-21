@@ -1,9 +1,9 @@
 ---
 - name: sftp-server role
   hosts: all
-  remote_user: root
-  # become: yes
-  # become_user: root
+  # remote_user: root
+  become: yes
+  become_user: root
   vars:
     - sftp_users:
       - name: polar
