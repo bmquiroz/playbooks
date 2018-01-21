@@ -7,7 +7,7 @@
   vars:
     - sftp_users:
       - name: polar
-        password: "$1$salty$li5TXAa2G6oxHTDkqx3Dz/" # passpass
+        password: $1$somesalt$jezmI5TSY7mVTzHLgsK5L.
         shell: False
         sftp_directories:
         - polar_data
