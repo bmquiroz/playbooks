@@ -1,26 +1,26 @@
 ---
 # Creates group for SFTP users.
-- name: Create sftp user group
+- name: sftp-server | Create sftp user group
   group:
     name: "{{ sftp_group_name }}"
     state: present
 
 # Necessary for chrooting of SFTP users.
-- name: Alter sftp subsystem entry
+- name: sftp-server | Alter sftp subsystem entry
   lineinfile:
     dest: /etc/ssh/sshd_config
     regexp: '^Subsystem(\s+)sftp'
     line: "Subsystem sftp internal-sftp -f AUTH -l VERBOSE"
     state: present
-  notify: Restart sshd
+  notify: sftp-server | Restart sshd
 
-- name: Ensure SELinux management package is present
+- name: sftp-server | Ensure SELinux management package is present
   package:
     name: "{{ 'python-semanage' if ansible_distribution == 'Debian' else 'libsemanage-python' }}"
     state: present
   when: ansible_selinux and sftp_enable_selinux_support
 
-- name: Set SELinux booleans
+- name: sftp-server | Set SELinux booleans
   seboolean:
     name: "{{ item }}"
     state: yes
@@ -30,10 +30,10 @@
     - ssh_chroot_rw_homedirs
   when: ansible_selinux and sftp_enable_selinux_support
 
-- name: Add sshd_config block
+- name: sftp-server | Add sshd_config block
   blockinfile:
     dest: /etc/ssh/sshd_config
-    marker: '# {mark} SFTP-Server {{ sftp_group_name }} block'
+    marker: '# {mark} sftp-server {{ sftp_group_name }} block'
     block: |
       Match Group {{ sftp_group_name }}
           ChrootDirectory %h
@@ -41,10 +41,10 @@
           X11Forwarding no
           ForceCommand internal-sftp {{ sftp_enable_logging | ternary('-l VERBOSE', '') }}
           PasswordAuthentication {{ sftp_allow_passwords | ternary('yes', 'no') }}
-  notify: Restart sshd
+  notify: sftp-server | Restart sshd
 
 # Create each SFTP user with home directory on the correct partition, and add to SFTP group.
-- name: Create sftp users
+- name: sftp-server | Create sftp users
   user:
     name: "{{ item.name }}"
     groups: "{{ sftp_group_name }}"
@@ -56,7 +56,7 @@
   with_items: "{{ sftp_users }}"
 
 # A working chrooted SFTP setup requires root:sftgroup ownership of a user's home directory.
-- name: Correct ownership and permission of home directories
+- name: sftp-server | Correct ownership and permission of home directories
   file:
     path: "{{ sftp_home_partition }}/{{ item.name }}"
     owner: root
@@ -65,7 +65,7 @@
   with_items: "{{ sftp_users }}"
 
 # Install all relevant public keys.
-- name: Install public keys
+- name: sftp-server | Install public keys
   authorized_key:
     user: "{{ item.0.name }}"
     key: "{{ lookup('file', item.1) }}"
@@ -76,7 +76,7 @@
       skip_missing: True
 
 # Update user passwords, if they were specified.
-- name: Update user passwords
+- name: sftp-server | Update user passwords
   user:
     name: "{{ item.name }}"
     password: "{{ item.password }}"
@@ -84,7 +84,7 @@
   when: item.password is defined
 
 # Create directories for all SFTP users. Optional, but recommended.
-- name: Create directories
+- name: sftp-server | Create directories
   file:
     path: "{{ sftp_home_partition }}/{{ item[0].name }}/{{ item[1].name | default(item[1]) }}"
     owner: "{{ item[0].name }}"
@@ -96,7 +96,7 @@
     - "{{ sftp_directories }}"
 
 # Create directories for individual SFTP users. Optional.
-- name: Create directories per user
+- name: sftp-server | Create directories per user
   file:
     path: "{{ sftp_home_partition }}/{{ item[0].name }}/{{ item[1].name | default(item[1]) }}"
     owner: "{{ item[0].name }}"
@@ -109,7 +109,7 @@
     - flags:
       skip_missing: True
 
-- name: Create dev directory for logging
+- name: sftp-server | Create dev directory for logging
   file:
     path: "{{ sftp_home_partition }}/{{ item.name }}/dev"
     owner: root
@@ -119,7 +119,7 @@
     - "{{ sftp_users }}"
   when: sftp_enable_logging
 
-- name: Enable logging
+- name: sftp-server | Enable logging
   blockinfile:
     dest: "/etc/rsyslog.d/sshd.conf"
     create: yes
@@ -136,4 +136,4 @@
       # additionally write an auth log
       auth,authpriv.*  /var/log/sftp/auth.log
   when: sftp_enable_logging
-  notify: Restart rsyslog
+  notify: sftp-server | Restart rsyslog

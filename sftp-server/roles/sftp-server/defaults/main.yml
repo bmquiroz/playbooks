@@ -4,5 +4,5 @@ sftp_group_name: sftpusers
 sftp_directories: []
 sftp_allow_passwords: True
 sftp_enable_selinux_support: False
-sftp_enable_logging: False
+sftp_enable_logging: Tue
 sftp_nologin_shell: /sbin/nologin
