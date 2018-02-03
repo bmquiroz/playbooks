@@ -1,0 +1,74 @@
+---
+- name: Bootstrap nodes
+  hosts: all
+  # remote_user: root
+  become: yes
+  become_user: root
+  
+  tasks:
+  - name: Gather facts
+    ec2_instance_facts:
+      region: us-east-1
+      filters:
+        "tag:role": "Worker"
+    register: instance_facts
+    
+  - file:
+    path: /home/temp
+    state: directory
+    mode: 0755
+
+  - name: Group hosts
+    add_host: hostname={{ item }} groups=launched
+      inventory_dir: "/home/temp"
+      # inventory_dir: "{{inventory_dir}}"
+    with_items: "{{ instance_facts.instances|selectattr('state', 'equalto', 'running')|map(attribute='private_ip_address')|list }}"
+    
+  - name: Create instance facts file
+    file:
+      dest: /home/temp/instance_facts
+      state: touch
+    delegate_to: localhost
+    
+  - name: Clone/pull repo
+    git:
+      repo: https://github.com/bmquiroz/hosts.git
+      dest: /home/temp
+      update: no
+
+  - name: Track changes
+    shell: "git add ."
+    args:
+      chdir: /home/temp/
+
+  - name: Commit changes
+    shell: "git -c user.name='Boris Quiroz' -c user.email='bmquiroz@email.com' commit -m 'Test1'"
+    args:
+      chdir: /home/temp/
+    ignore_errors: yes
+
+  - name: Set origin to include username and password
+    shell: "git remote set-url origin https://bmquiroz:@github.com/bmquiroz/hosts.git"
+    args:
+      chdir: /home/temp/
+
+  - name: Push changes
+    shell: "git push -u origin master"
+    args:
+      chdir: /home/temp/
+    
+  # - name: Append facts to conf file
+    # lineinfile:
+      # dest: /tmp/instance_facts
+      # line: "{{ instance_facts.private_ip_address }}"
+      # insertafter: EOF
+    # delegate_to: localhost
+ 
+# Run your specific roles that install and configure your application
+# - hosts: launched
+  # gather_facts: no
+  # user: centos
+  # sudo: yes
+  
+  # roles:
+    # - apache
