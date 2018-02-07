@@ -1,0 +1,9 @@
+---
+- name: Applying updates for v2 Docker swarm build
+  hosts: all
+  # remote_user: root
+  become: yes
+  become_user: root
+  #vars:
+  roles:
+    - docker-buildv2

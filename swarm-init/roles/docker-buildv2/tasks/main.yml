@@ -1,0 +1,18 @@
+---
+- name: Set local variables - EC2 variables 
+  shell: |
+    AWS_AZ=`curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone`
+    AWS_DEFAULT_REGION="`echo \"$AWS_AZ\" | sed -e 's:\([0-9][0-9]*\)[a-z]*\$:\\1:'`"
+    LOCAL_IP=`curl -sL http://169.254.169.254/latest/meta-data/local-ipv4`
+    MAC=`curl -s http://169.254.169.254/latest/meta-data/mac`
+    SUBNET=`curl -s http://169.254.169.254/latest/meta-data/network/interfaces/macs/$MAC/subnet-id`
+    SECURITY_GROUPS=`curl -s http://169.254.169.254/latest/meta-data/network/interfaces/macs/$MAC/security-group-ids`
+    INSTANCE_ID=`curl -s http://169.254.169.254/latest/meta-data/instance-id`
+    AWS_ACCESS_KEY_ID=AKIAIPYGDZYM6465N74A
+    AWS_SECRET_ACCESS_KEY=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
+    exit 0
+  delegate_to: localhost
+
+- name: Create local repo 
+  file: path="{{ local_repo }}" state=directory
+
