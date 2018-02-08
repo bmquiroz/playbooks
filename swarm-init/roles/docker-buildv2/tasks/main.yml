@@ -8,8 +8,6 @@
     SUBNET=`curl -s http://169.254.169.254/latest/meta-data/network/interfaces/macs/$MAC/subnet-id`
     SECURITY_GROUPS=`curl -s http://169.254.169.254/latest/meta-data/network/interfaces/macs/$MAC/security-group-ids`
     INSTANCE_ID=`curl -s http://169.254.169.254/latest/meta-data/instance-id`
-    AWS_ACCESS_KEY_ID=AKIAIPYGDZYM6465N74A
-    AWS_SECRET_ACCESS_KEY=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
     exit 0
   delegate_to: localhost
 
