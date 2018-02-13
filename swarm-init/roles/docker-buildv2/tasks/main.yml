@@ -6,7 +6,6 @@
   git:
     repo: 'https://github.com/bmquiroz/hosts.git'
     dest: /inventory
-    update: no
 
 - name: Update hosts file
   shell: |
