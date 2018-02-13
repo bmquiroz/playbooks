@@ -1,16 +1,22 @@
 ---
-- name: Set local variables - EC2 variables 
-  shell: |
-    AWS_AZ=`curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone`
-    AWS_DEFAULT_REGION="`echo \"$AWS_AZ\" | sed -e 's:\([0-9][0-9]*\)[a-z]*\$:\\1:'`"
-    LOCAL_IP=`curl -sL http://169.254.169.254/latest/meta-data/local-ipv4`
-    MAC=`curl -s http://169.254.169.254/latest/meta-data/mac`
-    SUBNET=`curl -s http://169.254.169.254/latest/meta-data/network/interfaces/macs/$MAC/subnet-id`
-    SECURITY_GROUPS=`curl -s http://169.254.169.254/latest/meta-data/network/interfaces/macs/$MAC/security-group-ids`
-    INSTANCE_ID=`curl -s http://169.254.169.254/latest/meta-data/instance-id`
-    exit 0
-  delegate_to: localhost
-
 - name: Create local repo 
   file: path="{{ local_repo }}" state=directory
+
+- name: Set local variables - EC2 variables 
+  git:
+    repo: 'https://github.com/bmquiroz/hosts.git'
+    dest: /inventory
+    update: no
+
+- name: Update hosts file
+  shell: |
+    MASTER_IP=($(sed -n '/masters/,/managers/{/masters/!{/managers/!p}}' hosts))
+    if [ -z "$MASTER_IP" ]
+    then
+      sed -i "/masters/a $LOCAL_IP" hosts
+    else
+      sed -i "/managers/a $LOCAL_IP" hosts
+    fi
+    exit 0
+  delegate_to: localhost
 
