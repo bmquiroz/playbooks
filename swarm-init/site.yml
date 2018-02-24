@@ -1,9 +1,18 @@
 ---
-- name: Applying updates for v2 Docker swarm build
+- name: Prepare nodes
+  hosts: nodes
+  gather_facts: true
+  ignore_errors: false
+  sudo: yes
+  roles: 
+    - base
+  
+- name: Initialize v2 Docker swarm build
   hosts: all
+  gather_facts: False
   # remote_user: root
   become: yes
   become_user: root
   #vars:
   roles:
-    - docker-buildv2
+    # - docker-buildv2
