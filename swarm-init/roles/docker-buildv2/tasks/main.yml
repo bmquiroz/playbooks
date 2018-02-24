@@ -1,21 +1,30 @@
 ---
-- name: Create local repo 
-  file: path="{{ local_repo }}" state=directory
+# - name: Get all cluster nodes
+  # set_fact:
+    # swarm_cluster_nodes: "{{ ansible_play_hosts | union(groups[swarm_worker_hosts]) | unique }}"
+    # swarm_cluster_workers: "{{ groups[swarm_worker_hosts] }}"
+    # swarm_cluster_managers: "{{ ansible_play_hosts }}"
+  # run_once: true
 
-- name: Check out hosts repo
-  git:
-    repo: 'https://github.com/bmquiroz/hosts.git'
-    dest: /inventory
+# - include: swarm_cluster_get_control_manager.yml
 
-- name: Update hosts file
-  shell: |
-    MASTER_IP=($(sed -n '/masters/,/managers/{/masters/!{/managers/!p}}' hosts))
-    if [ -z "$MASTER_IP" ]
-    then
-      sed -i "/masters/a $LOCAL_IP" hosts
-    else
-      sed -i "/managers/a $LOCAL_IP" hosts
-    fi
-    exit 0
-  delegate_to: localhost
+# - block:
+  # - include: swarm_cluster_bootstrap.yml
+  # - include: swarm_cluster_get_control_manager.yml
+  # when: swarm_cluster_control_manager is undefined
 
+# - include: swarm_cluster_state.yml
+
+- name: Join masters
+  include: swarm-cluster-masters.yml
+  when: hosts == 'masters'
+
+# - include: swarm_cluster_state.yml
+
+- name: Join managers
+  include: swarm-cluster-managers.yml
+  when: hosts == 'managers'
+  
+- name: Join workers
+  include: swarm-cluster-workers.yml
+  when: hosts == 'workers'
