@@ -1,6 +1,6 @@
 ---
 - name: Prepare nodes
-  hosts: nodes
+  hosts: all
   gather_facts: true
   ignore_errors: false
   sudo: yes
