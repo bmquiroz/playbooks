@@ -28,6 +28,7 @@
     state: started
     
 - name: Update LVM configuration
+<<<<<<< HEAD
   command: "{{ item }}" 
   with_items: 
     - sudo systemctl stop docker
@@ -42,6 +43,22 @@
     - sudo lvcreate --wipesignatures y -n thinpoolmeta docker -l 1%VG
     - sudo lvconvert -y --zero n -c 512K --thinpool docker/thinpool --poolmetadata docker/thinpoolmeta
     - sudo lsblk
+=======
+  command: "{{item}}" 
+    with_items: 
+      - sudo systemctl stop docker
+      - sudo lvremove thinpool docker -y
+      - sudo lsblk
+      - sudo yum install lvm* -y
+      - sudo pvcreate /dev/xvdb -ff -y
+      - sudo lsblk
+      - sudo vgcreate docker /dev/xvdb
+      - sudo lvcreate --wipesignatures y -n thinpool docker -l 95%VG -y
+      - sudo lsblk
+      - sudo lvcreate --wipesignatures y -n thinpoolmeta docker -l 1%VG
+      - sudo lvconvert -y --zero n -c 512K --thinpool docker/thinpool --poolmetadata docker/thinpoolmeta
+      - sudo lsblk
+>>>>>>> 366153947d518701b43786772504a80ab4a8600c
 
 - name: Edit docker.thinpool.profile 
   copy:
@@ -54,12 +71,21 @@
     
 - name: Additional config
   command: "{{item}}"
+<<<<<<< HEAD
   with_items:
     - sudo cat /etc/lvm/profile/docker-thinpool.profile
     - sudo lvchange --metadataprofile docker-thinpool docker/thinpool
     - sudo lvs -o+seg_monitor
     - sudo mkdir /var/lib/docker.bk
     - sudo mv /var/lib/docker/* /var/lib/docker.bk
+=======
+    with_items:
+      - sudo cat /etc/lvm/profile/docker-thinpool.profile
+      - sudo lvchange --metadataprofile docker-thinpool docker/thinpool
+      - sudo lvs -o+seg_monitor
+      - sudo mkdir /var/lib/docker.bk
+      - sudo mv /var/lib/docker/* /var/lib/docker.bk
+>>>>>>> 366153947d518701b43786772504a80ab4a8600c
       
 - name: Update daemon.json
   copy:
@@ -75,6 +101,7 @@
 
 - name: Additional config
   command: "{{item}}"
+<<<<<<< HEAD
   with_items:
     - sudo cat /etc/docker/daemon.json
     - sudo systemctl daemon-reload
@@ -83,3 +110,12 @@
     - sudo docker info
     - sudo pvdisplay
 
+=======
+    with_items:
+      - sudo cat /etc/docker/daemon.json
+      - sudo systemctl daemon-reload
+      - sudo systemctl start docker
+      - sudo systemctl status docker
+      - sudo docker info
+      - sudo pvdisplay
+>>>>>>> 366153947d518701b43786772504a80ab4a8600c
