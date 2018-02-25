@@ -1,0 +1,13 @@
+---
+- include_role:
+    name: base
+
+- name: Join Swarm cluster as manager
+  command: sudo docker swarm join --token {{ manager_token }} --adverstise-addr "{{ management_int }}" --listen-addr "{{ management_int }}":2377 --data-path-addr "{{ services_int }}" {{ master }}:2377
+  register: manager
+
+- name: Show results
+  debug: var=manager.stdout
+
+- name: Show errors
+  debug: var=manager.stderr

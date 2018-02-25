@@ -1,0 +1,10 @@
+---
+- name: Join Swarm cluster as a worker
+  command: sudo docker swarm join --token {{ token }} --adverstise-addr "{{ management_int }}" --data-path-addr "{{ services_int }}" {{ master }}:2377
+  register: worker
+ 
+- name: Show results
+  debug: var=worker.stdout
+ 
+- name: Show errors
+  debug: var=worker.stderr
