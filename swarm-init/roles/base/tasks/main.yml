@@ -60,12 +60,6 @@
     - sudo lvs -o+seg_monitor
     - sudo mkdir /var/lib/docker.bk
     - sudo mv /var/lib/docker/* /var/lib/docker.bk
-    with_items:
-      - sudo cat /etc/lvm/profile/docker-thinpool.profile
-      - sudo lvchange --metadataprofile docker-thinpool docker/thinpool
-      - sudo lvs -o+seg_monitor
-      - sudo mkdir /var/lib/docker.bk
-      - sudo mv /var/lib/docker/* /var/lib/docker.bk
       
 - name: Update daemon.json
   copy:
