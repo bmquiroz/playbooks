@@ -1,5 +1,4 @@
 ---
-<<<<<<< HEAD
 # - name: Prepare nodes
   # hosts: all
   # gather_facts: true
@@ -14,22 +13,3 @@
   sudo: yes
   roles:
     - "{ { role } }"
-=======
-- name: Prepare nodes
-  hosts: all
-  gather_facts: true
-  ignore_errors: false
-  sudo: yes
-  roles: 
-    - base
-  
-- name: Initialize v2 Docker swarm build
-  hosts: all
-  gather_facts: False
-  # remote_user: root
-  become: yes
-  become_user: root
-  #vars:
-  roles:
-    # - docker-buildv2
->>>>>>> 366153947d518701b43786772504a80ab4a8600c
