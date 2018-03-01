@@ -14,13 +14,14 @@
     
 - name: Enable Docker edge repo
   yum:
+    name: docker-ce-17.07.0.ce
     enablerepo: docker-ce-edge
     state: present
     
-- name: Install Docker CE
-  yum:
-    name: docker-ce-17.07.0.ce
-    state: present
+# - name: Install Docker CE
+  # yum:
+    # name: docker-ce-17.07.0.ce
+    # state: present
 
 - name: Start Docker service
   service:
