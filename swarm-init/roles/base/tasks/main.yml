@@ -12,7 +12,6 @@
 - name: Install Docker
   yum:
     name: docker-ce-17.07.0.ce
-    enablerepo: docker-ce-edge
     state: present
     
 # - name: Install Docker CE
