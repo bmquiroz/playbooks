@@ -2,6 +2,10 @@
 - include_role:
     name: base
     
+- git:
+    repo: https://github.com/bmquiroz/hosts.git
+    dest: /tmp
+
 - name: Init Swarm master
   # command: sudo docker swarm init --advertise-addr  {{ inventory_hostname }} --data-path-addr {{   }}
   command: sudo docker swarm init --advertise-addr  "{{ management_int }}":2377 --listen-addr "{{ management_int }}":2377 --data-path-addr "{{ services_int }}"
@@ -12,6 +16,9 @@
  
 - name: Show worker token
   debug: var=worker_token.stdout
+  
+- name: Write worker token to file
+  copy: content="{{ worker_token.stdout }}" dest=/tmp/hosts/swarm_conf
  
 - name: Get manager token
   command: sudo docker swarm join-token manager -q
@@ -19,3 +26,16 @@
  
 - name: Show master token
   debug: var=master_token.stdout
+  
+- name: Write manager token to file
+  copy: content="{{ master_token.stdout }}" dest=/tmp/hosts/swarm_conf
+  
+- name: Update conf file
+  command: "{{item}}"
+  with_items:
+    - git add .
+    - git -c user.name='Boris Quiroz' -c user.email='bmquiroz@email.com' commit -m 'Test1'
+    - git remote set-url origin https://bmquiroz:Blowthis1@github.com/bmquiroz/hosts.git
+    - git push -u origin master
+  args:
+    chdir: /tmp/
