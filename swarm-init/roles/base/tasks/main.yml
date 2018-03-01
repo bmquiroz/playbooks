@@ -8,7 +8,7 @@
        
 - name: Add Docker CE repos
   yum_repository:
-    name: docker
+    name: docker-ce-edge
     description: Docker CE
     baseurl: https://download.docker.com/linux/centos/docker-ce.repo
     
