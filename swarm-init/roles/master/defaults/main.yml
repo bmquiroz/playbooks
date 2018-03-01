@@ -1,7 +1,7 @@
 ---
 management_int: "eth0"
 services_int: "eth1"
-manager_token: "{{ hostvars[groups['masters'][0]]['master_token']['stdout'] }}"
-master: "{{ hostvars[groups['masters'][0]]['inventory_hostname'] }}"
-token: "{{ hostvars[groups['masters'][0]]['worker_token']['stdout'] }}"
-master: "{{ hostvars[groups['masters'][0]]['inventory_hostname'] }}"
+docker_edition: "ce"
+docker_channel: "edge"
+docker_repository: "
+docker_version: "18.02.0"
