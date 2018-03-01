@@ -7,10 +7,7 @@
     - lvm2
        
 - name: Add Docker CE repos
-  yum_repository:
-    name: docker_repo
-    description: Docker CE
-    baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+  command: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
     
 - name: Install Docker
   yum:
