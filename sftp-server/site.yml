@@ -8,7 +8,7 @@
     - home_partition: "{{ vpc }}"
     - sftp_users:
       - name: polar
-        password: $1$somesalt$jezmI5TSY7mVTzHLgsK5L.
+        password: $1$polar_sa$/6pQ6vhK/Y1NbZ1vuhSmj/
         shell: False
         sftp_directories:
         - gp
