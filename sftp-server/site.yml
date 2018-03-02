@@ -5,7 +5,7 @@
   become: yes
   become_user: root
   vars:
-    - home_partition: "{{ environment }}"
+    - home_partition: "{{ vpc }}"
     - sftp_users:
       - name: polar
         password: $1$somesalt$jezmI5TSY7mVTzHLgsK5L.
