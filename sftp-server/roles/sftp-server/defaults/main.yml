@@ -1,5 +1,5 @@
 ---
-sftp_home_partition: /mnt/booking-validation-prod-data
+sftp_home_partition: /mnt/booking-validation-"{{ home_partition }}"-data
 sftp_group_name: sftpusers
 sftp_directories: []
 sftp_allow_passwords: True
