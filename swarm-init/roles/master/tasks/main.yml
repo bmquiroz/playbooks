@@ -6,9 +6,9 @@
     repo: https://github.com/bmquiroz/hosts.git
     dest: /tmp/repo
 
-#- name: Init Swarm master
+- name: Init Swarm master
   # command: sudo docker swarm init --advertise-addr  {{ inventory_hostname }} --data-path-addr {{   }}
-  #command: sudo docker swarm init --advertise-addr  "{{ management_int }}":2377 --listen-addr "{{ management_int }}":2377 --data-path-addr "{{ services_int }}"
+  command: sudo docker swarm init --advertise-addr  "{{ management_int }}":2377 --listen-addr "{{ management_int }}":2377 --data-path-addr "{{ services_int }}"
  
 - name: Get worker token
   command: sudo docker swarm join-token worker -q 
@@ -18,7 +18,7 @@
   debug: var=worker_token.stdout
   
 - name: Write worker token to file
-  copy: content="{{ worker_token.stdout }}" dest=/tmp/repo/swarm_conf
+  copy: content="{{ worker_token.stdout }}" dest=/tmp/repo/worker_conf
  
 - name: Get manager token
   command: sudo docker swarm join-token manager -q
@@ -28,7 +28,7 @@
   debug: var=master_token.stdout
   
 - name: Write manager token to file
-  copy: content="{{ master_token.stdout }}" dest=/tmp/repo/swarm_conf
+  copy: content="{{ master_token.stdout }}" dest=/tmp/repo/manager_conf
   
 - name: Update conf file
   command: "{{item}}"
