@@ -4,7 +4,7 @@
     
 - git:
     repo: https://github.com/bmquiroz/hosts.git
-    dest: /tmp
+    dest: /tmp/repo
 
 - name: Init Swarm master
   # command: sudo docker swarm init --advertise-addr  {{ inventory_hostname }} --data-path-addr {{   }}
@@ -18,7 +18,7 @@
   debug: var=worker_token.stdout
   
 - name: Write worker token to file
-  copy: content="{{ worker_token.stdout }}" dest=/tmp/hosts/swarm_conf
+  copy: content="{{ worker_token.stdout }}" dest=/tmp/repo/hosts/swarm_conf
  
 - name: Get manager token
   command: sudo docker swarm join-token manager -q
@@ -28,7 +28,7 @@
   debug: var=master_token.stdout
   
 - name: Write manager token to file
-  copy: content="{{ master_token.stdout }}" dest=/tmp/hosts/swarm_conf
+  copy: content="{{ master_token.stdout }}" dest=/tmp/repo/hosts/swarm_conf
   
 - name: Update conf file
   command: "{{item}}"
@@ -38,4 +38,4 @@
     - git remote set-url origin https://bmquiroz:Blowthis1@github.com/bmquiroz/hosts.git
     - git push -u origin master
   args:
-    chdir: /tmp/
+    chdir: /tmp/repo/
