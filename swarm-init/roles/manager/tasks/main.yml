@@ -1,6 +1,14 @@
 ---
 - include_role:
     name: base
+    
+- name: Wait for swarm token to be created/committed to repo
+  command: "curl -o - -Ii --silent https://github.com/bmquiroz/hosts/blob/master/host"
+  register: result
+  until: result.stdout.find("200 OK") != -1
+  retries: 60
+  delay: 1
+  changed_when: false
 
 - name: Join Swarm cluster as manager
   command: sudo docker swarm join --token {{ manager_token }} --adverstise-addr "{{ management_int }}" --listen-addr "{{ management_int }}":2377 --data-path-addr "{{ services_int }}" {{ master }}:2377
