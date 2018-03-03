@@ -6,18 +6,33 @@
     - device-mapper-persistent-data
     - lvm2
        
-- name: Add Docker CE repos
-  command: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+#- name: Add Docker CE repos
+  #command: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
     
-- name: Install Docker
-  yum:
-    name: docker-ce-17.07.0.ce
-    state: present
+#- name: Install Docker
+  #yum:
+    #name: docker-ce-17.07.0.ce
+    #state: present
     
 # - name: Install Docker CE
   # yum:
     # name: docker-ce-17.07.0.ce
     # state: present
+
+- name: Add Docker CE repository
+  get_url:
+    url: https://download.docker.com/linux/centos/docker-ce.repo
+    dest: /etc/yum.repos.d/docker-ce.repo
+    force: yes
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Install Docker CE
+  yum:
+    name: docker-ce
+    state: present
+    update_cache: yes
 
 - name: Start Docker service
   service:
