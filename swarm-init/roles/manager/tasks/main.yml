@@ -3,7 +3,7 @@
     name: base
     
 - name: Wait for swarm token to be created/committed to repo
-  command: "curl -o - -Ii --silent https://github.com/bmquiroz/hosts/blob/master/host"
+  command: "curl -o - -Ii --silent https://github.com/bmquiroz/hosts/blob/master/manager_conf"
   register: result
   until: result.stdout.find("200 OK") != -1
   retries: 60
