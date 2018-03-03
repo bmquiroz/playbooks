@@ -9,8 +9,12 @@
   retries: 60
   delay: 1
   changed_when: false
+  
+- git:
+  repo: https://github.com/bmquiroz/hosts.git
+  dest: /tmp/repo
 
-- name: Join Swarm cluster as manager
+- name: Join swarm
   command: sudo docker swarm join --token {{ manager_token }} --adverstise-addr "{{ management_int }}" --listen-addr "{{ management_int }}":2377 --data-path-addr "{{ services_int }}" {{ master }}:2377
   register: manager
 
