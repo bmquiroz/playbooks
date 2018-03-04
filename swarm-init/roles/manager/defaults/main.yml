@@ -2,7 +2,7 @@
 management_int: "eth0"
 services_int: "eth1"
 manager_token: "{{ lookup('file', '/tmp/repo/manager_conf') }}"
-master_ip: "10.0.9.44"
+master_ip: "{{ leader_ip }}"
 #manager_token: "{{ hostvars[groups['masters'][0]]['master_token']['stdout'] }}"
 #master: "{{ hostvars[groups['masters'][0]]['inventory_hostname'] }}"
 #token: "{{ hostvars[groups['masters'][0]]['worker_token']['stdout'] }}"
