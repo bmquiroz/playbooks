@@ -43,7 +43,7 @@
  
 - name: Configure autoextension of thin pools via LVM profile
   template:
-    src: roles/aws-ag-deploy/templates/docker-thinpool.profile.j2
+    src: roles/base/templates/docker-thinpool.profile.j2
     dest: /etc/lvm/profile/docker-thinpool.profile
     owner: root
     group: root
@@ -60,7 +60,7 @@
     
 - name: Set options needed for the devicemapper storage driver and journald
   template:
-    src: roles/aws-ag-deploy/templates/daemon.json.j2
+    src: roles/base/templates/daemon.json.j2
     dest: /etc/docker/daemon.json
     owner: root
     group: root
