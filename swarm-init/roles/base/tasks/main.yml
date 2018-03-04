@@ -76,7 +76,7 @@
     - sudo lvchange --metadataprofile docker-thinpool docker/thinpool
     - sudo lvs -o+seg_monitor
     - sudo mkdir /var/lib/docker.bk
-    - sudo mv /var/lib/docker/* /var/lib/docker.bk
+    - sudo mv /var/lib/docker/ /var/lib/docker.bk
     
 - name: Configure the options needed for the devicemapper storage driver
   copy:
