@@ -51,9 +51,9 @@
     #- sudo lvremove thinpool docker -y
     #- sudo lsblk
     - sudo yum install lvm* -y
-    - sudo pvcreate /dev/xvdb -ff -y
+    - sudo pvcreate /dev/xvdf -ff -y
     #- sudo lsblk
-    - sudo vgcreate docker /dev/xvdb
+    - sudo vgcreate docker /dev/xvdf
     - sudo lvcreate --wipesignatures y -n thinpool docker -l 95%VG -y
     #- sudo lsblk
     - sudo lvcreate --wipesignatures y -n thinpoolmeta docker -l 1%VG
