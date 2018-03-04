@@ -60,6 +60,15 @@
     - sudo lvconvert -y --zero n -c 512K --thinpool docker/thinpool --poolmetadata docker/thinpoolmeta
     #- sudo lsblk
 
+- name: Copy 1
+  template:
+    src: /docker-thinpool.profile.j2
+    dest: /etc/lvm/profile/docker-thinpool.profile
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+
 - name: Configure autoextension of thin pools via LVM profile 
   copy:
     content: "activation {
@@ -77,6 +86,15 @@
     - sudo lvs -o+seg_monitor
     - sudo mkdir /var/lib/docker.bk
     - sudo mv /var/lib/docker/ /var/lib/docker.bk
+    
+- name: Copy 1
+  template:
+    src: /daemon.json.j2
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
     
 - name: Configure the options needed for the devicemapper storage driver
   copy:
