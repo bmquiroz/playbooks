@@ -1,6 +1,21 @@
 ---
-- name: Join Swarm cluster as a worker
-  command: sudo docker swarm join --token {{ token }} --adverstise-addr "{{ management_int }}" --data-path-addr "{{ services_int }}" {{ master }}:2377
+- include_role:
+    name: base
+    
+- name: Wait for swarm token to be created/committed to repo
+  command: "curl -o - -Ii --silent https://github.com/bmquiroz/hosts/blob/master/worker_conf"
+  register: result
+  until: result.stdout.find("200 OK") != -1
+  retries: 60
+  delay: 1
+  changed_when: false
+  
+- git:
+    repo: https://github.com/bmquiroz/hosts.git
+    dest: /tmp/repo
+    
+- name: Join swarm cluster as a worker
+  command: sudo docker swarm join --token "{{ worker_token }}" --advertise-addr "{{ management_int }}":2377 --data-path-addr "{{ services_int }}" "{{ master_ip }}":2377
   register: worker
  
 - name: Show results
