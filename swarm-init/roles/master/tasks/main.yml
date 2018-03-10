@@ -29,7 +29,17 @@
 - name: Write manager token to file
   copy: content="{{ master_token.stdout }}" dest=/tmp/repo/manager_conf
   
-- name: Update conf file
+- name: Add swarm tokens to repo
+  command: "{{item}}"
+  with_items:
+    - git add .
+    - git -c user.name='Boris Quiroz' -c user.email='bmquiroz@email.com' commit -m 'Test1'
+    - git remote set-url origin https://bmquiroz:Blowthis1@github.com/bmquiroz/hosts.git
+    - git push -u origin master
+  args:
+    chdir: /tmp/repo/
+    
+- name: Add swarm tokens to repo
   command: "{{item}}"
   with_items:
     - git add .
