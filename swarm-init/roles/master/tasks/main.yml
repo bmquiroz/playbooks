@@ -39,12 +39,8 @@
   args:
     chdir: /tmp/repo/
     
-- name: Add swarm tokens to repo
+- name: Add swarm overlay networks
   command: "{{item}}"
   with_items:
-    - git add .
-    - git -c user.name='Boris Quiroz' -c user.email='bmquiroz@email.com' commit -m 'Test1'
-    - git remote set-url origin https://bmquiroz:Blowthis1@github.com/bmquiroz/hosts.git
-    - git push -u origin master
-  args:
-    chdir: /tmp/repo/
+    - docker network create --driver=overlay --subnet=10.1.0.0/16 --gateway=10.1.0.1 proxy
+    - docker network create --driver=overlay --subnet=10.2.0.0/16 --gateway=10.2.0.1 backend
