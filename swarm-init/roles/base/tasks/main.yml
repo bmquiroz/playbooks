@@ -30,6 +30,7 @@
   service:
     name: docker
     state: stopped
+  when: role == "worker"
     
 - name: Configure direct-lvm mode
   command: "{{ item }}" 
@@ -40,6 +41,7 @@
     - sudo lvcreate --wipesignatures y -n thinpool docker -l 95%VG -y
     - sudo lvcreate --wipesignatures y -n thinpoolmeta docker -l 1%VG
     - sudo lvconvert -y --zero n -c 512K --thinpool docker/thinpool --poolmetadata docker/thinpoolmeta
+  when: role == "worker"
  
 - name: Configure autoextension of thin pools via LVM profile
   template:
@@ -49,6 +51,7 @@
     group: root
     mode: '0644'
     backup: yes
+  when: role == "worker"
     
 - name: Apply the LVM profile and enable monitoring for logical volumes
   command: "{{item}}"
@@ -57,6 +60,7 @@
     - sudo lvs -o+seg_monitor
     - sudo mkdir /var/lib/docker.bk
     - sudo mv /var/lib/docker/ /var/lib/docker.bk
+  when: role == "worker"
     
 - name: Set options needed for the devicemapper storage driver and journald
   template:
@@ -66,8 +70,10 @@
     group: root
     mode: '0644'
     backup: yes
+  when: role == "worker"
 
 - name: Start Docker service
   service:
     name: docker
     state: started
+  when: role == "worker"
