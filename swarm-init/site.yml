@@ -1,12 +1,4 @@
 ---
-# - name: Prepare nodes
-  # hosts: all
-  # gather_facts: true
-  # ignore_errors: false
-  # sudo: yes
-  # roles: 
-    # - base
-    
 - name: Docker init
   connection: local
   hosts: localhost
