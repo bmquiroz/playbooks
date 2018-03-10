@@ -24,6 +24,16 @@
 - name: Show errors
   debug: var=manager.stderr
   
-- name: Update inventory host file
+- name: Checkout host file
   git: src=https://github.com/bmquiroz/hosts.git dest=/inventory/hosts
   # sudo_user: <your user that has the ssh key>
+  
+- name: Update host file
+  command: "{{item}}"
+  with_items:
+    - git add .
+    - git -c user.name='Boris Quiroz' -c user.email='bmquiroz@email.com' commit -m 'Test1'
+    - git remote set-url origin https://bmquiroz:Blowthis1@github.com/bmquiroz/hosts.git
+    - git push -u origin master
+  args:
+    chdir: /inventory/hosts
