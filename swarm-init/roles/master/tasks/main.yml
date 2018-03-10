@@ -6,8 +6,7 @@
     repo: https://github.com/bmquiroz/hosts.git
     dest: /tmp/repo
 
-- name: Init Swarm master
-  # command: sudo docker swarm init --advertise-addr  {{ inventory_hostname }} --data-path-addr {{   }}
+- name: Init swarm master
   command: sudo docker swarm init --advertise-addr  "{{ management_int }}":2377 --listen-addr "{{ management_int }}":2377 --data-path-addr "{{ services_int }}"
  
 - name: Get worker token
