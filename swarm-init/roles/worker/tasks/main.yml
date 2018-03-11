@@ -38,7 +38,7 @@
   args:
     chdir: /inventory/hosts
     
-# TO-DO: Loop through Jinja2 tmplate to read volume names/IP addresses to mount
+# TO-DO: Loop through Jinja2 tmplate to read volume names/IP addresses to mount, taks for each environment
 - name: Add EFS mounts based on environment
   command: "{{item}}"
   with_items:
