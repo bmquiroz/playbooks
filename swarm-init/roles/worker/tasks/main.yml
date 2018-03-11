@@ -37,3 +37,9 @@
     - git push -u origin master
   args:
     chdir: /inventory/hosts
+
+- name: Add EFS mounts based on environment
+  command: "{{item}}"
+  with_items:
+    - sudo docker volume create --driver local --opt type=nfs4 --opt o=addr=10.12.3.109,rw --opt device=:/ --name inventory-stockwatch-devv-data
+    - sudo docker volume create --driver local --opt type=nfs4 --opt o=addr=10.12.3.109,rw --opt device=:/ --name inventory-stockwatch-devv-data
