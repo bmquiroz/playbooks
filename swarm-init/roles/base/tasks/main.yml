@@ -77,3 +77,7 @@
     name: docker
     state: started
   when: role == "worker"
+  
+ #TO-DO: Add sa-ansible user account and assign perms 
+#- name: Add sa-ansible user
+
