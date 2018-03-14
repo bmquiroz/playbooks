@@ -25,7 +25,7 @@
   debug: var=manager.stderr
   
 - name: Checkout host file
-  git: src=https://github.com/bmquiroz/hosts.git dest=/inventory/hosts
+  git: src=https://github.com/bmquiroz/hosts.git dest=~/inventory/hosts
   # sudo_user: <your user that has the ssh key>
   
 - name: Update host file
@@ -36,4 +36,4 @@
     - git remote set-url origin https://bmquiroz:Blowthis1@github.com/bmquiroz/hosts.git
     - git push -u origin master
   args:
-    chdir: /inventory/hosts
+    chdir: ~/inventory/hosts
