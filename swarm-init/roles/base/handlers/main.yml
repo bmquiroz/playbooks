@@ -1,0 +1,8 @@
+---
+- name: Restart Docker daemon
+  service: name=docker state=restarted
+  listen: "Restart Docker"
+  
+- name: Restart journald
+  service: name=systemd-journald state=restarted
+  listen: "Restart journald"
