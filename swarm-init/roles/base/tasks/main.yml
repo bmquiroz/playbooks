@@ -41,22 +41,22 @@
     #- sudo lvcreate --wipesignatures y -n thinpoolmeta docker -l 1%VG
     #- sudo lvconvert -y --zero n -c 512K --thinpool docker/thinpool --poolmetadata docker/thinpoolmeta
  
-- name: Configure autoextension of thin pools via LVM profile
-  template:
-    src: roles/base/templates/docker-thinpool.profile.j2
-    dest: /etc/lvm/profile/docker-thinpool.profile
-    owner: root
-    group: root
-    mode: '0644'
-    backup: yes
+#- name: Configure autoextension of thin pools via LVM profile
+  #template:
+    #src: roles/base/templates/docker-thinpool.profile.j2
+    #dest: /etc/lvm/profile/docker-thinpool.profile
+    #owner: root
+    #group: root
+    #mode: '0644'
+    #backup: yes
     
-- name: Apply the LVM profile and enable monitoring for logical volumes
-  command: "{{item}}"
-  with_items:
-    - sudo lvchange --metadataprofile docker-thinpool docker/thinpool
-    - sudo lvs -o+seg_monitor
-    - sudo mkdir /var/lib/docker.bk
-    - sudo mv /var/lib/docker/ /var/lib/docker.bk
+#- name: Apply the LVM profile and enable monitoring for logical volumes
+  #command: "{{item}}"
+  #with_items:
+    #- sudo lvchange --metadataprofile docker-thinpool docker/thinpool
+    #- sudo lvs -o+seg_monitor
+    #- sudo mkdir /var/lib/docker.bk
+    #- sudo mv /var/lib/docker/ /var/lib/docker.bk
     
 - name: Set options needed for the devicemapper storage driver and journald
   template:
