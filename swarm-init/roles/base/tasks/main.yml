@@ -30,7 +30,6 @@
   service:
     name: docker
     state: stopped
-  when: role == "worker"
     
 - name: Configure direct-lvm mode
   command: "{{ item }}" 
@@ -41,7 +40,6 @@
     - sudo lvcreate --wipesignatures y -n thinpool docker -l 95%VG -y
     - sudo lvcreate --wipesignatures y -n thinpoolmeta docker -l 1%VG
     - sudo lvconvert -y --zero n -c 512K --thinpool docker/thinpool --poolmetadata docker/thinpoolmeta
-  when: role == "worker"
  
 - name: Configure autoextension of thin pools via LVM profile
   template:
@@ -51,7 +49,6 @@
     group: root
     mode: '0644'
     backup: yes
-  when: role == "worker"
     
 - name: Apply the LVM profile and enable monitoring for logical volumes
   command: "{{item}}"
@@ -60,7 +57,6 @@
     - sudo lvs -o+seg_monitor
     - sudo mkdir /var/lib/docker.bk
     - sudo mv /var/lib/docker/ /var/lib/docker.bk
-  when: role == "worker"
     
 - name: Set options needed for the devicemapper storage driver and journald
   template:
@@ -70,14 +66,41 @@
     group: root
     mode: '0644'
     backup: yes
-  when: role == "worker"
+  
+- name: Update journald.conf
+  template:
+    src: roles/base/templates/journald.conf.j2
+    dest: /etc/systemd/journald.conf
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+  notify: "Restart journald"
 
 - name: Start Docker service
   service:
     name: docker
     state: started
-  when: role == "worker"
   
- # TO-DO: Add sa-ansible user account and assign perms 
-#- name: Add sa-ansible user
+- name: Add sa-ansible user
+  user:
+    name: sa-ansible
+    generate_ssh_key: yes
+    ssh_key_bits: 2048
+    ssh_key_file: .ssh/id_rsa
+    createhome: yes
+    password: '$1$ansible_$KLGZdt0df2Q6/OMGNuaV70'
+    state: present
+    shell: /bin/bash
+    home: /home/sa-ansible
+    
+- name: Create docker group
+  group:
+    name: docker
+    state: present
 
+- name: Add sa-ansible user to docker group
+  user:
+    name: sa-ansible
+    group: docker
+  when: role === "manager"
