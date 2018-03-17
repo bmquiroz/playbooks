@@ -93,7 +93,8 @@
     state: present
     shell: /bin/bash
     home: /home/sa-ansible
-    
+  when: role === "master" or role === "manager"
+  
 - name: Create docker group
   group:
     name: docker
@@ -103,4 +104,4 @@
   user:
     name: sa-ansible
     group: docker
-  when: role === "manager"
+  when: role === "master"
