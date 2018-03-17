@@ -27,7 +27,7 @@
   debug: var=master_token.stdout
   
 - name: Write manager token to file
-  copy: content="{{ master_token.stdout }}" dest=~/tmp/repo/manager_conf
+  copy: content="{{ master_token.stdout }}" dest=/tmp/repo/manager_conf
   
 - name: Add swarm tokens to repo
   command: "{{item}}"
@@ -37,7 +37,7 @@
     - git remote set-url origin https://bmquiroz:Blowthis1@github.com/bmquiroz/hosts.git
     - git push -u origin master
   args:
-    chdir: ~/tmp/repo/
+    chdir: /tmp/repo/
     
 - name: Add swarm overlay networks
   command: "{{item}}"
