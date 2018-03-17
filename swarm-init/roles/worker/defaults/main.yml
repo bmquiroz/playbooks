@@ -1,6 +1,8 @@
 ---
 management_int: "eth0"
 services_int: "eth1"
+git_repo: "https://github.com/bmquiroz/hosts.git"
+project_path: "/tmp/repo/"
 worker_token: "{{ lookup('file', '/tmp/repo/worker_conf') }}"
 master_ip: "{{ leader_ip }}"
 lifecycle: "{{ lifecycle }}"
