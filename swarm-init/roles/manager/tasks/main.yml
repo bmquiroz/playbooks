@@ -24,9 +24,11 @@
 - name: Show errors
   debug: var=manager.stderr
   
+
+  
 - name: Checkout host file
   git: src=https://github.com/bmquiroz/hosts.git dest=/root/inventory/hosts
-  # sudo_user: <your user that has the ssh key>
+  #sudo_user: <your user that has the ssh key>
   
 - name: Update host file
   command: "{{item}}"
