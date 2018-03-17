@@ -26,11 +26,3 @@
 - name: Show errors
   debug: var=manager.stderr
   
-- name: Update host file
-  command: "{{item}}"
-  with_items:
-    - git add .
-    - git -c user.name='Boris Quiroz' -c user.email='bmquiroz@email.com' commit -m 'Test1'
-    - git push origin master
-  args:
-    chdir: /root/inventory/hosts
