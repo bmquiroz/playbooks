@@ -2,9 +2,11 @@
 - include_role:
     name: base
     
-- git:
-    repo: https://github.com/bmquiroz/hosts.git
-    dest: /tmp/repo
+- name: Setup the Git repo
+  git: repo={{ git_repo }}
+       dest={{ project_path }}
+       accept_hostkey=True
+       key_file="/root/.ssh/id_rsa"
 
 - name: Init swarm master
   command: sudo docker swarm init --advertise-addr  "{{ management_int }}":2377 --listen-addr "{{ management_int }}":2377 --data-path-addr "{{ services_int }}"
@@ -34,8 +36,7 @@
   with_items:
     - git add .
     - git -c user.name='Boris Quiroz' -c user.email='bmquiroz@email.com' commit -m 'Test1'
-    - git remote set-url origin https://bmquiroz:Blowthis1@github.com/bmquiroz/hosts.git
-    - git push -u origin master
+    - git push origin master
   args:
     chdir: /tmp/repo/
     
