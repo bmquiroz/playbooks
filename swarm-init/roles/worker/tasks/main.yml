@@ -10,9 +10,11 @@
   delay: 1
   changed_when: false
   
-- git:
-    repo: https://github.com/bmquiroz/hosts.git
-    dest: /tmp/repo
+- name: Setup the Git repo
+  git: repo={{ git_repo }}
+       dest={{ project_path }}
+       accept_hostkey=True
+       key_file="/root/.ssh/id_rsa"
     
 - name: Join swarm cluster as a worker
   command: sudo docker swarm join --token "{{ worker_token }}" --advertise-addr "{{ management_int }}":2377 --data-path-addr "{{ services_int }}" "{{ master_ip }}":2377
@@ -23,20 +25,6 @@
  
 - name: Show errors
   debug: var=worker.stderr
-
-- name: Checkout host file
-  git: src=https://github.com/bmquiroz/hosts.git dest=/root/inventory/hosts
-  # sudo_user: <your user that has the ssh key>
-  
-- name: Update host file
-  command: "{{item}}"
-  with_items:
-    - git add .
-    - git -c user.name='Boris Quiroz' -c user.email='bmquiroz@email.com' commit -m 'Test1'
-    - git remote set-url origin https://bmquiroz:Blowthis1@github.com/bmquiroz/hosts.git
-    - git push -u origin master
-  args:
-    chdir: /root/inventory/hosts
     
 # TO-DO: Loop through Jinja2 tmplate to read volume names/IP addresses to mount, taks for each environment
 - name: Add EFS mounts based on environment
