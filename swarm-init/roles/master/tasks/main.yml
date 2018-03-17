@@ -1,12 +1,6 @@
 ---
 - include_role:
     name: base
-    
-- name: Setup the Git repo
-  git: repo={{ git_repo }}
-       dest={{ project_path }}
-       accept_hostkey=True
-       key_file="/root/.ssh/id_rsa"
 
 - name: Init swarm master
   command: sudo docker swarm init --advertise-addr  "{{ management_int }}":2377 --listen-addr "{{ management_int }}":2377 --data-path-addr "{{ services_int }}"
