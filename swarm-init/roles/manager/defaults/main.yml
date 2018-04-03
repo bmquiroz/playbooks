@@ -1,7 +1,8 @@
 ---
 management_int: "eth0"
 services_int: "eth1"
-git_repo: "https://github.com/bmquiroz/hosts.git"
+#git_repo: "https://github.com/bmquiroz/hosts.git"
+git_repo: "git@github.com:bmquiroz/hosts.git"
 project_path: "/tmp/repo/"
 manager_token: "{{ lookup('file', '/tmp/repo/manager_conf') }}"
 master_ip: "{{ leader_ip }}"
