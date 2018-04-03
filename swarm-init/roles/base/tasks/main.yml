@@ -1,13 +1,22 @@
 ---
-- name: Create the SSH public key file
-  copy: content="{{ git_ssh_pub_key }}"
-        dest=/root/.ssh/id_rsa.pub
-        mode=0644
+- file:
+    path: /root/.ssh
+    owner: root
+    group: root
+    state: directory
+    mode: 700
 
-- name: Create the SSH private key file
-  copy: content="{{ git_ssh_priv_key }}"
-        dest=/root/.ssh/id_rsa
-        mode=0600
+- name: Ensure public keys are present
+  copy:
+    src: "{{ git_ssh_pub_key }}"
+    dest: /root/.ssh/id_rsa.pub
+    mode: 0644
+
+- name: Ensure private keys are present
+  copy:
+    src: "{{ git_ssh_priv_key }}"
+    dest: /root/.ssh/id_rsa
+    mode: 0600
   
 - name: Install dependencies
   yum: pkg={{ item }} state=installed
