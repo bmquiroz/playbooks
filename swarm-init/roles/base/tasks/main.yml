@@ -3,7 +3,7 @@
     #path: /root/.ssh
     #owner: root
     #group: root
-    3state: directory
+    #state: directory
     #mode: 700
 
 #- name: Ensure public keys are present
