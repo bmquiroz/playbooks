@@ -8,13 +8,16 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+The following dependencies must be installed on the Ansible workstation that will be used to deploy swarm clusters. 
 
 ```
-Give examples
+- Boto3
+- AWS CLI
+- Python 3
+- Ansible 2.4 (devel)
 ```
 
-### Installing
+### Installation
 
 A step by step series of examples that tell you have to get a development env running
 
@@ -22,12 +25,6 @@ Say what the step will be
 
 ```
 ansible-playbook site.yml -e "lifecycle=qa cluster=02"
-```
-
-And repeat
-
-```
-until finished
 ```
 
 End with an example of getting some data out of the system or using it for a little demo
