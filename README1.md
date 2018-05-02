@@ -17,6 +17,17 @@ The following dependencies must be installed on the Ansible workstation that wil
 - Ansible 2.4 (devel)
 ```
 
+### Playbooks
+```
+aws-provision
+```
+Used to deploy EC2 instances in Autoscaling group across multiple AZs. EC2 instances are bootstrapped using cloud-init config template which creates and launches a bash start up script.
+
+```
+swarm-init
+```
+Docker swarm installation and initialization playbook. Creates cluster based on parameters that are passed by aws-provision.
+
 ### Installation
 
 A step by step series of examples that tell you have to get a development env running
