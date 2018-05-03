@@ -11,10 +11,14 @@ These instructions will get you a copy of the project up and running on your loc
 The following dependencies must be installed on the Ansible workstation that will be used to deploy swarm clusters. 
 
 ```
+Workstation:
 - Boto3
 - AWS CLI
 - Python 3
 - Ansible 2.4 (devel)
+
+AWS:
+WIP
 ```
 
 ### Playbooks
