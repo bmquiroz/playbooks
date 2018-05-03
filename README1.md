@@ -30,17 +30,13 @@ Docker swarm installation and initialization playbook. Creates a cluster based o
 
 ### Installation
 
-A step by step series of examples that tell you have to get a development env running
+Update playbook paramters 
 
 Say what the step will be
 
 ```
 ansible-playbook site.yml -e "lifecycle=qa cluster=02"
 ```
-
-## Contribut
-
-Add additional notes about how to deploy this on a live system
 
 ## Contributing
 
@@ -52,5 +48,4 @@ WIP
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
+* **Boris Quiroz** - *Initial work*
