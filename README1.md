@@ -11,14 +11,19 @@ These instructions will get you a copy of the project up and running on your loc
 The following dependencies must be installed on the Ansible workstation that will be used to deploy swarm clusters. 
 
 ```
-Workstation:
+Ansible workstation:
 - Boto3
 - AWS CLI
 - Python 3
 - Ansible 2.4 (devel)
 
 AWS:
-WIP
+- 3 subnets in different AZs with ~20 free IP addresses (per subnet)
+- Docker swarm manager and worker Security Groups
+- IAM API user account - Used by Ansible to create ASG and deploy instances
+- IAM instance profile - Used by EC2 insances to create ENI and modify configuration
+- Standard AMI that can be used to launch m5.xlarge instances
+- SSH keypair used to pull/push from Bitbucket repos
 ```
 
 ### Playbooks
@@ -34,7 +39,7 @@ Docker swarm installation and initialization playbook. Creates a cluster based o
 
 ### Installation
 
-Ensure all dependencies are met. Update playbook parameters. Navigate to /aws-provision and execute play:
+Ensure all dependencies are met. Update playbook parameters. Navigate to `/aws-provision` and execute play:
 
 ```
 ansible-playbook site.yml -e "lifecycle=qa cluster=02"
