@@ -39,11 +39,13 @@ Docker swarm installation and initialization playbook. Creates a cluster based o
 
 ### Installation
 
-Ensure all dependencies are met. Update playbook parameters. Navigate to `/aws-provision` and execute play:
+Ensure all prerequisites are met. Update playbook parameters. Navigate to `/aws-provision` and execute play:
 
 ```
+git clone ssh://git@bitbucket.gxicloud.com:7999/foun/foundry_automations.git
 ansible-playbook site.yml -e "lifecycle=qa cluster=02"
 ```
+Parameters passed to playbooks are `lifecycle` which represents the environment you are deploying to and `cluster` which represents the cluster.
 
 ## Contributing
 
