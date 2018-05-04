@@ -1,6 +1,4 @@
-### Prerequisites
-
-The following dependencies must be installed on the Ansible workstation that will be used to deploy swarm clusters. 
+### Playbook structure
 
 ```
 aws-provision/
@@ -15,7 +13,7 @@ aws-provision/
 └── site.yml
 ```
 
-### 
+### Parameters
 
 Update parameters in `/defaults/main.yml`
 
