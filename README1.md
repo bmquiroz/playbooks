@@ -30,7 +30,7 @@ AWS:
 ```
 aws-provision
 ```
-Used to deploy EC2 instances in Autoscaling group across multiple AZs. EC2 instances are bootstrapped using cloud-init config template which creates and launches a bash start up script.
+Used to deploy EC2 instances in auto scaling group across multiple AZs. EC2 instances are bootstrapped using cloud-init config template which creates and launches a bash start up script.
 
 ```
 swarm-init
