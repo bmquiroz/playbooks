@@ -26,3 +26,20 @@ aws-provision/
 ### Prerequisites
 
 The following dependencies must be installed on the Ansible workstation that will be used to deploy swarm clusters. 
+
+```
+key_pair: EC2 key pair
+region: AWS region
+security_groups: Security group
+azs: Availibity Zone
+subnets: Subnets
+min_size: "2"
+max_size: "2"
+desired_size: "2"
+lifecycle: "{{ lifecycle }}"
+cluster: "{{ cluster }}"
+docker_profile: Instance profile
+placement: "swarm-{{ lifecycle }}-{{ cluster }}"
+instance_type: 'm5.large'
+ami_id: "ami-a371c1dc"
+volume_size: Size of secondary volume
