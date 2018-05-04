@@ -1,6 +1,6 @@
 # Swarm Automated Deployment
 
-The Swarm Deployment tool can be used to provision and configure multi-node Docker clusters in AWS environments. The tool is made up of two Ansible playbooks. The first playbook creates the ASG/LC configuration, deploys the configuration, provisions EC2 instances, and kickstarts the Docker swarm initalization script. The second playbook installs Docker CE and applies all base configuration settings. Each cluster that is launched using the tool, has a unique hosts (inventory) and manager_conf/worker_conf (token strings) config files. These config files are stored in Bitbcuket and are created automatically when the cluster is launched. 
+The Swarm Deployment tool can be used to provision and configure multi-node Docker clusters in AWS environments. The tool is made up of two Ansible playbooks. The first playbook creates the ASG/LC configuration, deploys the configuration, provisions EC2 instances, and kickstarts the Docker swarm initalization script. The second playbook installs Docker CE and applies all base configuration settings. Each cluster that is launched using the tool, has a unique hosts (inventory) and manager_conf/worker_conf (token strings) config files. These config files are stored in Bitbucket and are created automatically when the cluster is launched. 
 
 ## Getting Started
 
