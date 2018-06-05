@@ -9,10 +9,10 @@ Install the pre-reqs listed below and ensure StackMaster is running on the lates
 
 ### Prerequisites
 
-The following dependencies must be installed on the Ansible workstation that will be used to deploy swarm clusters. 
+The following dependencies must be installed on the workstation that will be used to manage CloudFormation stacks. 
 
 ```
-Ansible workstation:
+Workstation:
 - Boto3
 - AWS CLI
 - Python 3
@@ -75,11 +75,9 @@ cf-templates/
 
 Ensure all prerequisites are met. Update playbook parameters. Navigate to `/aws-provision` and execute play:
 
-```
-git clone ssh://git@bitbucket.gxicloud.com:7999/foun/foundry_automations.git
-ansible-playbook site.yml -e "lifecycle=qa cluster=02"
-```
-Parameters passed to playbooks are `lifecycle` which represents the environment you are deploying to and `cluster` which represents the cluster.
+Clone repo to get the latest version of the templates `git clone ssh://git@bitbucket.gxicloud.com:7999/foun/foundry_automations.git`
+
+Change to the directory of the environment you wish to manage and execute `stack_master apply`
 
 ## Contributing
 
