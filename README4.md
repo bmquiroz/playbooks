@@ -5,7 +5,7 @@ The StackMaster CLI tool can be used to streamline and consolidate stacks deploy
 
 ## Getting Started
 
-Install the pre-reqs listed below and ensure StackMaster is running on the latest build. More info on StackMaster can be found here [StackMaster](https://github.com/envato/stack_master)
+Install the pre-reqs listed below and ensure StackMaster is running on the latest build. More info on StackMaster can be found here [StackMaster](https://github.com/envato/stack_master).
 
 ### Prerequisites
 
@@ -16,18 +16,14 @@ Ansible workstation:
 - Boto3
 - AWS CLI
 - Python 3
-- Ansible 2.4 (devel)
+- Ruby 2.5.1
 
 AWS:
-- 3 subnets in different AZs with ~20 free IP addresses (per subnet)
-- Docker swarm manager and worker Security Groups
-- IAM API user account - Used by Ansible to create ASG and deploy instances
-- IAM instance profile - Used by EC2 insances to create ENI and modify configuration
-- Standard AMI that can be used to launch m5.xlarge instances
+- API user account for each environment being managed - Automation policy should be attached to user account
 - SSH keypair used to pull/push from Bitbucket repos
 ```
 
-### Playbooks
+### Directory Structure
 ```
 cf-templates/
 ├── perf
@@ -74,11 +70,6 @@ cf-templates/
     └── templates
         └── oxc-stage-security-groups.yml
 ```
-
-```
-swarm-init
-```
-Docker swarm installation and initialization playbook. Creates a cluster based on parameters that are passed by aws-provision.
 
 ### Installation
 
