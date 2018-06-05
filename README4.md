@@ -28,8 +28,6 @@ AWS:
 
 ### Playbooks
 ```
-aws-provision
-```
 cf-templates/
 ├── perf
 │   ├── parameters
@@ -74,7 +72,7 @@ cf-templates/
     │   └── oxc_stage_security_groups.yml
     └── templates
         └── oxc-stage-security-groups.yml
-
+```
 
 ```
 swarm-init
