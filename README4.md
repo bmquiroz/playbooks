@@ -30,7 +30,51 @@ AWS:
 ```
 aws-provision
 ```
-Used to deploy EC2 instances in auto scaling group across multiple AZs. EC2 instances are bootstrapped using cloud-init config template which creates and launches a bash start up script.
+cf-templates/
+├── perf
+│   ├── parameters
+│   │   ├── docker_swarm.yml
+│   │   ├── oxc_perf_efs.yml
+│   │   ├── oxc_perf_security_groups.yml
+│   │   └── us-east-1
+│   │       └── polar_sftp.yml
+│   ├── stack_master.yml
+│   └── templates
+│       ├── docker-swarm.yml
+│       ├── oxc-perf-efs.yml
+│       ├── oxc-perf-security-groups.yml
+│       └── oxc-perf-security-groups.yml.bak
+├── prod
+│   ├── parameters
+│   │   ├── oxc_perf_devops_tools.yml
+│   │   └── oxc_prod_security_groups.yml
+│   ├── stack_master.yml
+│   └── templates
+│       ├── oxc-perf-devops-tools.yml
+│       └── oxc-prod-security-groups.yml
+├── qa
+│   ├── parameters
+│   │   ├── oxc_qa_security_groups.yml
+│   │   └── polar_sftp.yml
+│   ├── stack_master.yml
+│   └── templates
+│       ├── oxc-qa-security-groups.yml
+│       └── polar-sftp.yml
+├── shared
+│   ├── parameters
+│   │   ├── oxc_shared_devops_tools.yml
+│   │   └── oxc_shared_security_groups.yml
+│   ├── stack_master.yml
+│   └── templates
+│       ├── oxc-shared-devops-tools.yml
+│       ├── oxc-shared-security-groups.yml
+│       └── trident-devops-tools-iam.yml
+└── stage
+    ├── parameters
+    │   └── oxc_stage_security_groups.yml
+    └── templates
+        └── oxc-stage-security-groups.yml
+
 
 ```
 swarm-init
