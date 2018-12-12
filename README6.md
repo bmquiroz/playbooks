@@ -1,12 +1,12 @@
-# Swarm Automated Deployment
+# Server Name Generator Tool
 
-The Server Name Generator Tool allows you to create 15 character host names based on the Aon standard naming convention (e.g. NL4DWDPCMS1234). 
+The Server Name Generator (SNG) Tool allows you to create 15 character host names based on the Aon standard naming convention (e.g. NL4DWDPCMS1234). 
 
 For a complete list of values and functional mappings, please visit this page.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will help you get a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
 
