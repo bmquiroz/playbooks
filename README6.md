@@ -8,36 +8,21 @@ For a complete list of values and functional mappings, please visit this page.
 
 These instructions will help you get a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
+## Block Diagram
+
+
+
 ### Prerequisites
 
 The following dependencies must be installed on the Ansible workstation that will be used to deploy swarm clusters. 
 
 ```
-Ansible workstation:
-- Boto3
-- AWS CLI
-- Python 3
-- Ansible 2.4 (devel)
-
-AWS:
-- 3 subnets in different AZs with ~20 free IP addresses (per subnet)
-- Docker swarm manager and worker Security Groups
-- IAM API user account - Used by Ansible to create ASG and deploy instances
-- IAM instance profile - Used by EC2 insances to create ENI and modify configuration
-- Standard AMI that can be used to launch m5.xlarge instances
-- SSH keypair used to pull/push from Bitbucket repos
+- Python 3.7.0
+- Gunicorn
+- Nginx
+- Python 2.7
+- Supervisor
 ```
-
-### Playbooks
-```
-aws-provision
-```
-Used to deploy EC2 instances in auto scaling group across multiple AZs. EC2 instances are bootstrapped using cloud-init config template which creates and launches a bash start up script.
-
-```
-swarm-init
-```
-Docker swarm installation and initialization playbook. Creates a cluster based on parameters that are passed by aws-provision.
 
 ### Directory Structure
 ```
