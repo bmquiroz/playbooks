@@ -39,6 +39,17 @@ swarm-init
 ```
 Docker swarm installation and initialization playbook. Creates a cluster based on parameters that are passed by aws-provision.
 
+### Directory Structure
+```
+/home/sng/sng_v13
+├── app
+├── __pycache__
+├── README.md
+├── requirements.txt
+├── run.py
+└── venv
+```
+
 ### Installation
 
 Ensure all prerequisites are met. Update playbook parameters. Navigate to `/aws-provision` and execute play:
