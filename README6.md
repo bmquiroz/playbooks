@@ -41,13 +41,27 @@ Docker swarm installation and initialization playbook. Creates a cluster based o
 
 ### Directory Structure
 ```
-/home/sng/sng_v13
+/home/sng/sng_12
 ├── app
+│   ├── hostnames.py
+│   ├── __init__.py
+│   ├── __pycache__
+│   ├── routes.py
+│   ├── static
+│   ├── templates
+│   └── test.db
 ├── __pycache__
+│   └── run.cpython-37.pyc
 ├── README.md
 ├── requirements.txt
 ├── run.py
 └── venv
+    ├── bin
+    ├── include
+    ├── lib
+    ├── lib64 -> lib
+    ├── pip-selfcheck.json
+    └── pyvenv.cfg
 ```
 
 ### Installation
